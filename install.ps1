@@ -9,7 +9,7 @@ $arquivos = @(
     "programa1.exe",
     "programa2.reg",
     "programa3.exe",
-    "programa4.exe",
+    "programa4.exe"
 )
 
 foreach ($arquivo in $arquivos) {
