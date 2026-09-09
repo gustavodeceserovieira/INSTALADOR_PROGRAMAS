@@ -1,19 +1,34 @@
-#Baixa arquivos executáveis
+
 $baseUrl = "https://raw.githubusercontent.com/gustavodeceserovieira/INSTALADOR_PROGRAMAS/main/programas"
 $pasta = "$env:USERPROFILE\Downloads\basicos"
 
 New-Item -ItemType Directory -Force -Path $pasta | Out-Null
 
-#Baixa o .bat
+#Baixa os arquivos da pasta programas
+$arquivos = @(
+    "programa1.exe",
+    "programa2.reg",
+    "programa3.exe",
+    "programa4.exe",
+)
+
+foreach ($arquivo in $arquivos) {
+    Write-Host "Baixando $arquivo..."
+    Invoke-WebRequest `
+        -Uri "$baseUrl/$arquivo" `
+        -OutFile "$pasta\$arquivo"
+}
+
+#Baixa e executa o arquivo bat
+
 Invoke-WebRequest `
     -Uri "https://raw.githubusercontent.com/gustavodeceserovieira/INSTALADOR_PROGRAMAS/main/basicos.bat" `
-    -OutFile "$env:USERPROFILE\Downloads\basicos\instalador_programas"
+    -OutFile "$env:USERPROFILE\Downloads\basicos\instalador_programas.bat"
 
-Start-Process "$env:USERPROFILE\Downloads\basicos\instalador_programas" -Wait
+Start-Process "$env:USERPROFILE\Downloads\basicos\instalador_programas.bat" -Wait
 
 do{
     Clear-Host
-
     Write-Host "---------------------------------------------"
     Write-Host "0 - Sair"
     Write-Host "1 - Instalar programas basicos"
