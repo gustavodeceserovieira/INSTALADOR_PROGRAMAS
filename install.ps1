@@ -1,5 +1,5 @@
 
-$baseUrl = "https://raw.githubusercontent.com/gustavodeceserovieira/INSTALADOR_PROGRAMAS/main/programas"
+$baseUrl = "https://gustavodeceserovieira.github.io/INSTALADOR_PROGRAMAS/programas"
 $pasta = "$env:USERPROFILE\Downloads\basicos"
 
 New-Item -ItemType Directory -Force -Path $pasta | Out-Null
@@ -9,7 +9,8 @@ $arquivos = @(
     "programa1.exe",
     "programa2.reg",
     "programa3.exe",
-    "programa4.exe"
+    "programa4.exe",
+    "office.zip"
 )
 
 foreach ($arquivo in $arquivos) {
@@ -22,12 +23,10 @@ foreach ($arquivo in $arquivos) {
 #Baixa e executa o arquivo bat
 
 Invoke-WebRequest `
-    -Uri "https://raw.githubusercontent.com/gustavodeceserovieira/INSTALADOR_PROGRAMAS/main/basicos.bat" `
+    -Uri "https://gustavodeceserovieira.github.io/INSTALADOR_PROGRAMAS/basicos.bat" `
     -OutFile "$env:USERPROFILE\Downloads\basicos\instalador_programas.bat"
 
 Start-Process "$env:USERPROFILE\Downloads\basicos\instalador_programas.bat" -Wait
-
-
 
 do{
     Clear-Host
