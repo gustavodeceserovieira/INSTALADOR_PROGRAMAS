@@ -31,6 +31,11 @@ Start-Process "$env:USERPROFILE\Downloads\basicos\instalador_programas.bat" -Wai
 
 do{
     Clear-Host
+
+    Write-Host("INFORMACAO IMPORTANTE: Para windows 10, e necessario realizar todas as atualizacoes antes de instalar os programas
+        Caso queria fazer em paralelo e necessario baixar um arquivo nesse link: 
+        https://learn.microsoft.com/pt-br/windows/msix/app-installer/install-update-app-installer
+    ")
     Write-Host "---------------------------------------------"
     Write-Host "0 - Sair"
     Write-Host "1 - Instalar programas basicos"
@@ -115,11 +120,5 @@ do{
     }
     Read-Host "Pressione ENTER para voltar ao menu"
 }while ($true)
-
-
-Write-Host("INFORMAÇÃO IMPORTANTE: Para windows 10, é necessário realizar todas as atualizações antes de instalar os programas
-    Caso queria fazer em paralelo é necessário baixar um arquivo nesse link: 
-    https://learn.microsoft.com/pt-br/windows/msix/app-installer/install-update-app-installer
-")
 
 
