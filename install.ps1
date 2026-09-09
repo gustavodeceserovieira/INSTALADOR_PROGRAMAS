@@ -1,7 +1,15 @@
-$baseUrl = "https://github.com/gustavodeceserovieira/INSTALADOR_PROGRAMAS.git/main/programas"
+#Baixa arquivos executáveis
+$baseUrl = "https://raw.githubusercontent.com/gustavodeceserovieira/INSTALADOR_PROGRAMAS/main/programas"
 $pasta = "$env:USERPROFILE\Downloads\basicos"
 
 New-Item -ItemType Directory -Force -Path $pasta | Out-Null
+
+#Baixa o .bat
+Invoke-WebRequest `
+    -Uri "https://raw.githubusercontent.com/gustavodeceserovieira/INSTALADOR_PROGRAMAS/main/basicos.bat" `
+    -OutFile "$env:USERPROFILE\Downloads\basicos\instalador_programas"
+
+Start-Process "$env:USERPROFILE\Downloads\basicos\instalador_programas" -Wait
 
 do{
     Clear-Host
