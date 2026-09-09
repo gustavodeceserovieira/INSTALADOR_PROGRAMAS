@@ -28,11 +28,6 @@ Invoke-WebRequest `
 Start-Process "$env:USERPROFILE\Downloads\basicos\instalador_programas.bat" -Wait
 
 
-Write-Host("INFORMAÇÃO IMPORTANTE: Para windows 10, é necessário realizar todas as atualizações antes de instalar os programas
-    Caso queria fazer em paralelo é necessário baixar um arquivo nesse link: 
-    https://learn.microsoft.com/pt-br/windows/msix/app-installer/install-update-app-installer
-")
-
 
 do{
     Clear-Host
@@ -120,4 +115,11 @@ do{
     }
     Read-Host "Pressione ENTER para voltar ao menu"
 }while ($true)
+
+
+Write-Host("INFORMAÇÃO IMPORTANTE: Para windows 10, é necessário realizar todas as atualizações antes de instalar os programas
+    Caso queria fazer em paralelo é necessário baixar um arquivo nesse link: 
+    https://learn.microsoft.com/pt-br/windows/msix/app-installer/install-update-app-installer
+")
+
 
