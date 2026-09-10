@@ -15,6 +15,12 @@ if (Test-Path -Path $pasta) {
 }else{
     New-Item -ItemType Directory -Force -Path $pasta | Out-Null
 
+    Invoke-WebRequest `
+        -Uri "https://gustavodeceserovieira.github.io/INSTALADOR_PROGRAMAS/basicos.bat" `
+        -OutFile "$pasta\instalador_programas.bat"
+
+    Start-Process "$pasta\instalador_programas.bat" -Wait
+
     #Cria um processo separado para só para os downloads
     $downloadScript = "$PSScriptRoot\downloads.ps1"
 
@@ -25,11 +31,6 @@ if (Test-Path -Path $pasta) {
         "-baseUrl", "`"$baseUrl`"",
         "-pasta", "`"$pasta`""
     )
-    Invoke-WebRequest `
-        -Uri "https://gustavodeceserovieira.github.io/INSTALADOR_PROGRAMAS/basicos.bat" `
-        -OutFile "$pasta\instalador_programas.bat"
-
-    Start-Process "$pasta\instalador_programas.bat" -Wait
 }
 
 do{
