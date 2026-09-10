@@ -2,39 +2,41 @@
 $baseUrl = "https://gustavodeceserovieira.github.io/INSTALADOR_PROGRAMAS/programas"
 $pasta = "$env:USERPROFILE\Downloads\basicos"
 
-New-Item -ItemType Directory -Force -Path $pasta | Out-Null
 
-#Baixa os arquivos da pasta programas
-$arquivos = @(
-    "programa1.exe",
-    "programa2.reg",
-    "programa3.exe",
-    "programa4.exe",
-    "office.zip"
-)
-
-foreach ($arquivo in $arquivos) {
-    Write-Host "Baixando $arquivo..."
+#Testa se a pasta existe, se existir executa só o cmd
+if (Test-Path -Path $pasta) {
     Invoke-WebRequest `
-        -Uri "$baseUrl/$arquivo" `
-        -OutFile "$pasta\$arquivo"
+        -Uri "https://gustavodeceserovieira.github.io/INSTALADOR_PROGRAMAS/basicos.bat" `
+        -OutFile "$pasta\instalador_programas.bat"
+
+    Start-Process "$pasta\instalador_programas.bat" -Wait
+
+#Se a pasta não existir ele cria
+}else{
+    New-Item -ItemType Directory -Force -Path $pasta | Out-Null
+
+    #Cria um processo separado para só para os downloads
+    $downloadScript = "$PSScriptRoot\downloads.ps1"
+
+    Start-Process powershell.exe -ArgumentList @(
+        "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
+        "-File", "`"$downloadScript`"",
+        "-baseUrl", "`"$baseUrl`"",
+        "-pasta", "`"$pasta`""
+    )
+    Invoke-WebRequest `
+        -Uri "https://gustavodeceserovieira.github.io/INSTALADOR_PROGRAMAS/basicos.bat" `
+        -OutFile "$pasta\instalador_programas.bat"
+
+    Start-Process "$pasta\instalador_programas.bat" -Wait
 }
-
-#Baixa e executa o arquivo bat
-
-Invoke-WebRequest `
-    -Uri "https://gustavodeceserovieira.github.io/INSTALADOR_PROGRAMAS/basicos.bat" `
-    -OutFile "$env:USERPROFILE\Downloads\basicos\instalador_programas.bat"
-
-Start-Process "$env:USERPROFILE\Downloads\basicos\instalador_programas.bat" -Wait
 
 do{
     Clear-Host
-
-    Write-Host("INFORMACAO IMPORTANTE: Para windows 10, e necessario realizar todas as atualizacoes antes de instalar os programas
-        Caso queria fazer em paralelo e necessario baixar um arquivo nesse link: 
-        https://learn.microsoft.com/pt-br/windows/msix/app-installer/install-update-app-installer
-    ")
+    Write-Host("INFORMACAO IMPORTANTE: Para windows 10, e necessario realizar todas as atualizacoes antes de instalar os programas")
+    Write-Host("Caso queria fazer em paralelo e necessario baixar um arquivo nesse link: ")
+    Write-Host("https://learn.microsoft.com/pt-br/windows/msix/app-installer/install-update-app-installer")
     Write-Host "---------------------------------------------"
     Write-Host "0 - Sair"
     Write-Host "1 - Instalar programas basicos"
