@@ -1,6 +1,7 @@
 
 $baseUrl = "https://gustavodeceserovieira.github.io/INSTALADOR_PROGRAMAS/programas"
 $pasta = "$env:USERPROFILE\Downloads\basicos"
+$downloadScript = "$pasta\downloads.ps1"
 
 
 #Testa se a pasta existe, se existir executa só o cmd
@@ -16,13 +17,15 @@ if (Test-Path -Path $pasta) {
     New-Item -ItemType Directory -Force -Path $pasta | Out-Null
 
     Invoke-WebRequest `
+        -Uri "https://gustavodeceserovieira.github.io/INSTALADOR_PROGRAMAS/downloads.ps1" `
+        -OutFile $downloadScript
+
+    Invoke-WebRequest `
         -Uri "https://gustavodeceserovieira.github.io/INSTALADOR_PROGRAMAS/basicos.bat" `
         -OutFile "$pasta\instalador_programas.bat"
 
-    Start-Process "$pasta\instalador_programas.bat" -Wait
-
-    #Cria um processo separado para só para os downloads
-    $downloadScript = "$PSScriptRoot\downloads.ps1"
+    Start-Process "$pasta\instalador_programas.bat"
+   
 
     Start-Process powershell.exe -ArgumentList @(
         "-NoProfile",
